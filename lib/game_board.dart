@@ -20,7 +20,7 @@ class GameBoard extends StatefulWidget {
 
 class _GameBoardState extends State<GameBoard> {
  // List<int> selectedRow = []; //dikey
-  //List<int> selectedRow2 = []; //yatay
+  List<int> selectedRow2 = []; //yatay
   Map<int, int> selectedRowsMap = {};
 
   bool isRedTurn = true;
