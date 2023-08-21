@@ -4,7 +4,8 @@ class GameBoardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(5, (j) => GameBoard(j: j)),
+      children: [for (int j = 0; j < 5; j++) GameBoard(j: j)],
+
     );
   }
 }
@@ -30,72 +31,66 @@ class _GameBoardState extends State<GameBoard> {
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(5, (i) {
-        return Column(
+        return Stack(
           children: [
-            Stack(
-              children: [
 
 
-            if (i < 4)
-              GestureDetector(
-                onTap: () {
-                  if (!selectedRowsMap.containsKey(i) || !selectedRowsMap.containsValue(widget.j)) {
-                    setState(() {
-                    //  selectedRow2.add(i);
-                      selectedRowsMap[i] = widget.j;
-                      isRedTurn = !isRedTurn;
-                    });
-                  }
-                },
-
-                child: Container(
-                  width: 85,
-                  height: 6,
-                  color: selectedRowsMap.containsValue(widget.j) && selectedRowsMap.containsKey(i)
-                   //selectedRow2.contains(i)
-                      ? isRedTurn
-                      ? Colors.red
-                      : Colors.blue
-                      : Colors.black12,
-                 // margin: EdgeInsets.only(top: widget.j < 5 ? 0 : 20),
-                ),
-              ),
-
-
-
-            if (widget.j < 4)
-              GestureDetector(
+        if (i < 4)
+          GestureDetector(
             onTap: () {
-              if (!selectedRowsMap.containsKey(widget.j) || !selectedRowsMap.containsValue(i)) {
+              if (selectedRowsMap[i] != widget.j) {
                 setState(() {
-                  selectedRowsMap[widget.j] = i;
-
-                  // selectedRow.add(i);
+                //  selectedRow2.add(i);
+                  selectedRowsMap[i] = widget.j;
                   isRedTurn = !isRedTurn;
                 });
               }
             },
+
             child: Container(
-              width: 6,
-              height: 85,
-              color: selectedRowsMap.containsValue(i) && selectedRowsMap.containsKey(widget.j)
-              //selectedRow.contains(i)
-                  ? isRedTurn
-                  ? Colors.red
-                  : Colors.blue
+              width: 85,
+              height: 6,
+              color: selectedRowsMap.containsValue(widget.j) && selectedRowsMap.containsKey(i)
+               //selectedRow2.contains(i)
+
+                  ? Colors.black
                   : Colors.black12,
+             // margin: EdgeInsets.only(top: widget.j < 5 ? 0 : 20),
             ),
-              ),
+          ),
 
 
-                const CircleAvatar(
-                  radius: 4,
-                  backgroundColor: Colors.black,
-                ),
+
+        if (widget.j < 4)
+          GestureDetector(
+        onTap: () {
+          if (selectedRowsMap[widget.j] != i) {
+            setState(() {
+              selectedRowsMap[widget.j] = i;
+
+              // selectedRow.add(i);
+            //  isRedTurn = !isRedTurn;
+            });
+          }
+        },
+        child: Container(
+          width: 6,
+          height: 85,
+          color: selectedRowsMap.containsValue(i) && selectedRowsMap.containsKey(widget.j)
+          //selectedRow.contains(i)
+             // ? isRedTurn
+              //? Colors.red
+              ? Colors.black
+              : Colors.black12,
+        ),
+          ),
 
 
-              ],
-            )
+            const CircleAvatar(
+              radius: 4,
+              backgroundColor: Colors.black,
+            ),
+
 
           ],
         );
